@@ -2,6 +2,7 @@ namespace ShelfLife.Infrastructure.Persistence.Migrations;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ShelfLife.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Metadata;
 using ShelfLife.Domain.Entities;
 using ShelfLife.Domain.Enums;
