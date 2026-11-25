@@ -44,8 +44,14 @@ public sealed class InventoryApiTests
         await db.InventoryItems.ExecuteDeleteAsync();
 
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var request = new InventoryItemRequest(
-            "Milk", 2m, MeasurementUnit.Liter, today.AddDays(2), StorageCategory.Fridge);
+        var request = new InventoryItemRequest
+        {
+            Name = "Milk",
+            Quantity = 2m,
+            Unit = MeasurementUnit.Liter,
+            ExpiryDate = today.AddDays(2),
+            Category = StorageCategory.Fridge
+        };
 
         var createResponse = await client.PostAsJsonAsync("/api/inventory", request, JsonOptions);
         Assert.Equal(HttpStatusCode.Created, createResponse.StatusCode);
