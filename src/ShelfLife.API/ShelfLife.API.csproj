@@ -2,6 +2,6 @@
   <ItemGroup>
     <ProjectReference Include="../ShelfLife.Domain/ShelfLife.Domain.csproj" />
     <ProjectReference Include="../ShelfLife.Infrastructure/ShelfLife.Infrastructure.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
   </ItemGroup>
 </Project>
