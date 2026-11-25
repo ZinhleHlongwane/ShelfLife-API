@@ -43,11 +43,9 @@ Requirements: .NET 10 SDK and Docker Desktop.
    dotnet build
    ```
 
-3. Create and apply the initial migration:
+3. Apply the committed database migration:
 
    ```bash
-   dotnet tool install --global dotnet-ef --version 10.0.0
-   dotnet ef migrations add InitialCreate --project src/ShelfLife.Infrastructure --startup-project src/ShelfLife.API --output-dir Persistence/Migrations
    dotnet ef database update --project src/ShelfLife.Infrastructure --startup-project src/ShelfLife.API
    ```
 
@@ -87,7 +85,7 @@ Enum values are case-insensitive in JSON. Supported units: `Count`, `Gram`, `Kil
 
 ## Current scope and next steps
 
-This is the initial shared inventory API foundation. Authentication, household ownership, authorisation, production secrets management, integration tests, and client API integration are not implemented yet. Do not expose this development API to the public internet or use it for real household data until those controls are added.
+This is the initial shared inventory API foundation. The initial PostgreSQL migration and PostgreSQL-backed API integration test are included. Authentication, household ownership, authorisation, production secrets management, and client API integration are not implemented yet. Do not expose this development API to the public internet or use it for real household data until those controls are added.
 
 Planned next:
 1. Add automated domain and API integration tests.
