@@ -33,7 +33,10 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("ShelfLifeClients");
 app.MapControllers();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
