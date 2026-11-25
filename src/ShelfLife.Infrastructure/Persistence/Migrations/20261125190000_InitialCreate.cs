@@ -1,7 +1,6 @@
 namespace ShelfLife.Infrastructure.Persistence.Migrations;
 
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using ShelfLife.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore.Migrations;
 using ShelfLife.Infrastructure.Persistence;
 
