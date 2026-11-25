@@ -18,19 +18,20 @@ public sealed class InventoryController(ShelfLifeDbContext dbContext) : Controll
     {
         var query = dbContext.InventoryItems.AsNoTracking();
 
-        if (!string.IsNullOrWhiteSpace(category) &&
-            Enum.TryParse<Domain.Enums.StorageCategory>(category, true, out var parsedCategory))
+        if (!string.IsNullOrWhiteSpace(category))
         {
+            if (!Enum.TryParse<ShelfLife.Domain.Enums.StorageCategory>(category, true, out var parsedCategory))
+                return BadRequest("category must be Fridge, Pantry, or Freezer.");
+
             query = query.Where(item => item.Category == parsedCategory);
         }
 
-        var items = await query
+        var entities = await query
             .OrderBy(item => item.ExpiryDate)
             .ThenBy(item => item.Name)
-            .Select(item => InventoryItemResponse.FromEntity(item))
             .ToListAsync(cancellationToken);
 
-        return Ok(items);
+        return Ok(entities.Select(InventoryItemResponse.FromEntity).ToList());
     }
 
     [HttpGet("{id:guid}")]
@@ -116,9 +117,8 @@ public sealed class InventoryController(ShelfLifeDbContext dbContext) : Controll
         var items = await dbContext.InventoryItems.AsNoTracking()
             .Where(item => item.ExpiryDate >= today && item.ExpiryDate <= cutoff)
             .OrderBy(item => item.ExpiryDate)
-            .Select(item => InventoryItemResponse.FromEntity(item))
             .ToListAsync(cancellationToken);
 
-        return Ok(items);
+        return Ok(items.Select(InventoryItemResponse.FromEntity).ToList());
     }
 }
